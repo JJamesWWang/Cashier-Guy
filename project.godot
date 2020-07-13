@@ -9,13 +9,19 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
+"base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "Area2D",
+"class": "Slot",
+"language": "GDScript",
+"path": "res://game/slots/Slot.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"GitAPI": "",
+"Slot": ""
 }
 
 [application]
@@ -24,6 +30,10 @@ config/name="Cashier Guy"
 config/description="Guy's about to experience his worst day on the job."
 run/main_scene="res://game/Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+InputParse="*res://utils/InputParse.gd"
 
 [display]
 

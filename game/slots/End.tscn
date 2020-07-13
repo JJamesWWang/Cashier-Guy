@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="End" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="."]
