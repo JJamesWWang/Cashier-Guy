@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/widgets/StatusBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/textures/StatusBar.png" type="Texture" id=2]
+[ext_resource path="res://ui/widgets/Indicator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/Theme.tres" type="Theme" id=4]
+
+[node name="Control" type="Control"]
+margin_right = 240.0
+rect_min_size = Vector2( 240, 300 )
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusBars" type="VBoxContainer" parent="."]
+margin_left = 6.0
+margin_right = 246.0
+margin_bottom = 299.0
+rect_min_size = Vector2( 240, 300 )
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GuyLabel" type="Label" parent="StatusBars"]
+margin_right = 240.0
+margin_bottom = 33.0
+text = "Guy"
+align = 1
+
+[node name="GuyBar" parent="StatusBars" instance=ExtResource( 1 )]
+margin_top = 33.0
+margin_right = 240.0
+margin_bottom = 93.0
+texture = ExtResource( 2 )
+
+[node name="Space" type="Control" parent="StatusBars"]
+margin_top = 93.0
+margin_right = 240.0
+margin_bottom = 103.0
+rect_min_size = Vector2( 0, 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManagerLabel" type="Label" parent="StatusBars"]
+margin_top = 103.0
+margin_right = 240.0
+margin_bottom = 136.0
+text = "Manager"
+align = 1
+
+[node name="ManagerBar" parent="StatusBars" instance=ExtResource( 1 )]
+margin_top = 136.0
+margin_right = 240.0
+margin_bottom = 196.0
+texture = ExtResource( 2 )
+
+[node name="Space2" type="Control" parent="StatusBars"]
+margin_top = 196.0
+margin_right = 240.0
+margin_bottom = 206.0
+rect_min_size = Vector2( 0, 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CustomerLabel" type="Label" parent="StatusBars"]
+margin_top = 206.0
+margin_right = 240.0
+margin_bottom = 239.0
+text = "Customer"
+align = 1
+
+[node name="CustomerBar" parent="StatusBars" instance=ExtResource( 1 )]
+margin_top = 239.0
+margin_right = 240.0
+margin_bottom = 299.0
+texture = ExtResource( 2 )
+
+[node name="GuyIndicator" parent="." instance=ExtResource( 3 )]
+margin_top = 22.5
+margin_right = 50.0
+margin_bottom = 102.5
+
+[node name="ManagerIndicator" parent="." instance=ExtResource( 3 )]
+margin_left = 100.0
+margin_top = 126.0
+margin_right = 150.0
+margin_bottom = 206.0
+
+[node name="CustomerIndicator" parent="." instance=ExtResource( 3 )]
+margin_left = 200.0
+margin_top = 229.0
+margin_right = 250.0
+margin_bottom = 309.0
