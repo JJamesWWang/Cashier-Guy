@@ -1,10 +1,70 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/Screen.gd" type="Script" id=2]
 
 [node name="Screen" type="Panel"]
 margin_left = 568.0
 margin_right = 568.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 400, 200 )
+rect_min_size = Vector2( 1000, 260 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 50.0
+margin_top = 36.0
+margin_right = 950.0
+margin_bottom = 224.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 908.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 900, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_right = 200.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 200, 165 )
+text = "Amount Paid:
+Item Price:
+Change Due:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AmountLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 204.0
+margin_right = 379.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 175, 165 )
+text = "$40.00
+$24.99
+$15.01"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FunLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 383.0
+margin_right = 908.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 525, 165 )
+text = "Hi, I am here to help you."
+autowrap = true
+clip_text = true
+
+[node name="OptimalLabel" type="Label" parent="VBoxContainer"]
+margin_top = 169.0
+margin_right = 908.0
+margin_bottom = 202.0
+text = "Optimal Change: 1 $20, 1 $10, 1 $5, 1 $1, 2 Q, 2 D, 1 N, 1 P"

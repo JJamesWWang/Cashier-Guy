@@ -22,5 +22,12 @@ margin_bottom = 738.0
 position = Vector2( 43, 561 )
 SPEED = 256
 START = Vector2( 43, 561 )
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 300.0
+one_shot = true
+
+[node name="FunTimer" type="Timer" parent="."]
+wait_time = 30.0
 [connection signal="slot_changed" from="Slots" to="." method="_on_Slots_slot_changed"]
 [connection signal="reset" from="SlotSelector" to="." method="_on_SlotSelector_reset"]
