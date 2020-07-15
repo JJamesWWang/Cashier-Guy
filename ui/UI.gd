@@ -1,8 +1,10 @@
 extends VBoxContainer
 
 var change_visible := true
-var last_price: int
+var value_reverse := false
 var last_paid: int
+var last_price: int
+var last_change: int
 
 onready var time_label: Label = $Middle/RegisterTop/VBoxContainer/TimeLabel
 onready var _screen = $Middle/RegisterTop/VBoxContainer/HBoxContainer/Screen
@@ -11,16 +13,21 @@ onready var amount_label: Label = _screen.amount_label
 onready var fun_label: Label = _screen.fun_label
 onready var optimal_label: Label = _screen.optimal_label
 onready var status_bars: Control = $Middle/StatusBars
+onready var slots: TextureRect = $VBoxContainer/ChangeSlots
 
 
-func update_screen(price: int, paid: int, change: int, optimal: Array):
+func update_screen(paid: int, price: int, change: int, optimal: Array):
 	if change_visible:
-		amount_label.text = "$%.2f\n$%.2f\n$%.2f" % [price / 100.0, paid / 100.0, change / 100.0]
+		amount_label.text = "$%.2f\n$%.2f\n$%.2f" % [paid / 100.0, price / 100.0, change / 100.0]
 	else:
-		amount_label.text = "$%.2f\n$%.2f" % [price / 100.0, paid / 100.0]
+		if value_reverse:
+			amount_label.text = "$%.2f\n$%.2f" % [price / 100.0, paid / 100.0]
+		else:
+			amount_label.text = "$%.2f\n$%.2f" % [paid / 100.0, price / 100.0]
 	optimal_label.text = "Optimal change: %s" % format_optimal(optimal)
-	last_price = price
 	last_paid = paid
+	last_price = price
+	last_change = change
 
 
 func format_optimal(optimal: Array) -> String:
@@ -103,20 +110,47 @@ func hide_optimal(hide := true) -> void:
 	optimal_label.modulate.a = 0 if hide else 255
 
 
+# It doesn't make sense to hide change when optimal is visible.
+# PRE-CONDITION: optimal_label.modulate.a = 0
 func hide_change(hide := true) -> void:
 	change_visible = not hide
 	screen_label.text = "Amount Paid:\nItem Price:"
-	amount_label.text = "$%.2f\n$%.2f" % [last_price / 100.0, last_paid / 100.0]
+	amount_label.text = "$%.2f\n$%.2f" % [last_paid / 100.0, last_price / 100.0]
 
 
 func disable_tens(disable := true) -> void:
-	var slots = $VBoxContainer/ChangeSlots
 	var slot_numbers = slots.get_node("Labels")
 	slot_numbers.get_node("Label10").modulate.a = 0 if disable else 255
 	slot_numbers.get_node("Label1").modulate.a = 0 if disable else 255
 	slot_numbers.get_node("LabelD").modulate.a = 0 if disable else 255
 	slot_numbers.get_node("LabelP").modulate.a = 0 if disable else 255
 	slots.texture = load("res://ui/textures/ChangeSlotsHalf.png")
+
+
+# It doesn't make sense to reverse when change is visible.
+# PRE-CONDITION: change_visible = false
+func reverse_values(reverse := true) -> void:
+	value_reverse = reverse
+	screen_label.text = "Item Price:\nAmount Paid:"
+	amount_label.text = "$%.2f\n$%.2f" % [last_price / 100.0, last_paid / 100.0]
+
+
+func hide_slot_numbers(hide := true) -> void:
+	var slot_numbers = slots.get_node("Labels")
+	for child in slot_numbers.get_children():
+		if child is Label:
+			child.modulate.a = 0 if hide else 255
+
+
+func hide_slot_labels(hide := true) -> void:
+	var slot_labels = $VBoxContainer/Labels
+	for child in slot_labels.get_children():
+		if child is Label:
+			child.modulate.a = 0 if hide else 255
+
+
+func hide_timer(hide := true) -> void:
+	time_label.modulate.a = 0 if hide else 255
 
 
 func _get_slot_label(slot: Slot) -> Label:

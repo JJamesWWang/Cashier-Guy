@@ -1,20 +1,24 @@
 extends Node2D
 
-const MAX_PRICE = 10000
+const MAX_PAID = 10000
 
-var price : int
-var paid : int
-var change : int
+var paid: int
+var price: int
+var change: int
 var optimal: Array
 var slot_passes := 0
 var mood_guy: int = rand_range(100, 200)
 var mood_manager: int = rand_range(100, 200)
 var mood_customer: int = rand_range(100, 200)
 var fun_count := 1
+var tens_disabled := false
+var manager_present := false
+var rush_hour := false
 
 onready var ui: Control = $UI
 onready var overhead: CanvasLayer = $Overhead
 onready var slots: Node2D = $Slots
+onready var selector: Area2D = $SlotSelector
 onready var current_slot: Slot = $Slots/Slot20
 onready var game_timer: Timer = $GameTimer
 onready var fun_timer: Timer = $FunTimer
@@ -43,16 +47,21 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
 		var number: String = InputParse.parse(event)
 		if number != "-1":
-			ui.add_to_slot(current_slot, number)
-			current_slot.quantity = current_slot.quantity * 10 + int(number)
+			if not tens_disabled:
+				ui.add_to_slot(current_slot, number)
+				current_slot.quantity = current_slot.quantity * 10 + int(number)
+			else:
+				if not current_slot.symbol in ["10", "1", "D", "P"]:
+					ui.add_to_slot(current_slot, number)
+					current_slot.quantity = current_slot.quantity * 10 + int(number)
 
 
 func generate_scenario() -> void:
-	price = randi() % MAX_PRICE
-	paid = randi() % (price - 1)
-	change = price - paid
+	paid = randi() % MAX_PAID + 5
+	price = randi() % (paid - 1) + 1
+	change = paid - price
 	calculate_optimal()
-	ui.update_screen(price, paid, change, optimal)
+	ui.update_screen(paid, price, change, optimal)
 
 # Use greedy algorithm for optimal change and store in var optimal
 func calculate_optimal() -> void:
@@ -165,19 +174,60 @@ func fun_effect(number: int) -> void:
 			fun2()
 		3:
 			fun3()
+		4:
+			fun4()
+		5:
+			fun5()
+		6:
+			fun6()
+		7:
+			fun7()
+		8:
+			fun8()
+		9:
+			fun9()
 
 
 func fun1() -> void:
 	ui.hide_optimal()
 
 
+# Must come after fun1
 func fun2() -> void:
 	ui.hide_change()
 
 
 func fun3() -> void:
-	slots.disable_tens()
+	selector.speed_up()
+
+
+func fun4() -> void:
+	ui.hide_slot_numbers()
+	ui.hide_slot_labels()
+	ui.hide_timer()
+
+
+func fun5() -> void:
+	manager_present = true
+	rush_hour = true
+
+
+func fun6() -> void:
+	tens_disabled = true
 	ui.disable_tens()
+
+
+# Must come after fun2
+func fun7() -> void:
+	ui.reverse_values()
+
+
+func fun8() -> void:
+	selector.reverse_direction()
+
+
+func fun9() -> void:
+	selector.speed_up()
 
 
 func _on_Slots_slot_changed(slot: Slot) -> void:

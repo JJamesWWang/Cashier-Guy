@@ -25,6 +25,7 @@ margin_bottom = 738.0
 position = Vector2( 43, 561 )
 SPEED = 256
 START = Vector2( 43, 561 )
+ALT_START = Vector2( 1322, 561 )
 
 [node name="GameTimer" type="Timer" parent="."]
 wait_time = 300.0

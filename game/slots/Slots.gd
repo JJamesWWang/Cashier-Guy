@@ -11,12 +11,5 @@ func get_slot(symbol: String) -> Slot:
 	return slot
 
 
-func disable_tens(disable := true) -> void:
-	$Slot10/Shape.disabled = disable
-	$Slot1/Shape.disabled = disable
-	$SlotD/Shape.disabled = disable
-	$SlotP/Shape.disabled = disable
-
-
 func _on_slot_entered(slot: Slot) -> void:
 	emit_signal("slot_changed", slot)
