@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/ThaleahFat_TTF.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://ui/Overhead.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 256
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 144
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Overhead" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="ColorRect1" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 327.0
+margin_top = 266.0
+margin_right = 1317.0
+margin_bottom = 516.0
+rect_min_size = Vector2( 900, 250 )
+color = Color( 0.16, 0.16, 0.16, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccuracyLabel" type="Label" parent="ColorRect1"]
+margin_left = -7.00003
+margin_top = -6.0
+margin_right = 993.0
+margin_bottom = 254.0
+rect_min_size = Vector2( 1000, 260 )
+custom_fonts/font = SubResource( 1 )
+text = "+$25.09"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 52.0
+margin_top = 571.0
+margin_right = 1312.0
+margin_bottom = 691.0
+color = Color( 0.16, 0.16, 0.16, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EfficiencyLabel" type="Label" parent="ColorRect2"]
+margin_left = 3.0
+margin_top = -1.0
+margin_right = 1283.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 1280, 140 )
+custom_fonts/font = SubResource( 2 )
+text = "+5 Overflow"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fade = SubResource( 3 )

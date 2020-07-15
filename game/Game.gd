@@ -10,8 +10,10 @@ var slot_passes := 0
 var mood_guy: int = rand_range(100, 200)
 var mood_manager: int = rand_range(100, 200)
 var mood_customer: int = rand_range(100, 200)
+var fun_count := 1
 
 onready var ui: Control = $UI
+onready var overhead: CanvasLayer = $Overhead
 onready var slots: Node2D = $Slots
 onready var current_slot: Slot = $Slots/Slot20
 onready var game_timer: Timer = $GameTimer
@@ -32,6 +34,9 @@ func _process(_delta: float) -> void:
 		reset_slots()
 	if Input.is_action_just_pressed("start_game"):
 		start_timers()
+	if Input.is_action_just_pressed("fun"):
+		fun_effect(fun_count)
+		fun_count += 1
 
 
 func _input(event: InputEvent) -> void:
@@ -96,7 +101,10 @@ func start_timers() -> void:
 func handle_cycle() -> void:
 	var player_change := calculate_change()
 	if player_change != 0:
-		update_moods(player_change)
+		var accuracy = player_change - change
+		var efficiency = calculate_inefficiency()
+		update_moods(accuracy, efficiency)
+		flash_results(accuracy, efficiency)
 		reset_slots()
 		generate_scenario()
 		slot_passes = 0
@@ -111,10 +119,10 @@ func calculate_change() -> int:
 
 
 # Based on efficiency, speed, and accuracy, and current game state.
-func update_moods(player_change: int):
-	var mood_change := (MoodCalculator.check_efficiency(calculate_inefficiency())
+func update_moods(accuracy: int, efficiency: int):
+	var mood_change := (MoodCalculator.check_efficiency(efficiency)
 					  + MoodCalculator.check_speed(slot_passes)
-					  + MoodCalculator.check_accuracy(player_change - change))
+					  + MoodCalculator.check_accuracy(accuracy))
 	# Potentially make effects less effective at higher/lower moods
 	# warning-ignore-all:narrowing_conversion
 	mood_guy += mood_change.x
@@ -134,6 +142,11 @@ func calculate_inefficiency() -> int:
 	return inefficiency
 
 
+func flash_results(accuracy: int, efficiency: int) -> void:
+	overhead.update_labels(accuracy, efficiency)
+	overhead.flash_and_fade()
+
+
 func change_slots(slot: Slot):
 	current_slot = slot
 
@@ -144,12 +157,27 @@ func reset_slots() -> void:
 		ui.reset_slot(slot)
 
 
+func fun_effect(number: int) -> void:
+	match number:
+		1:
+			fun1()
+		2:
+			fun2()
+		3:
+			fun3()
+
+
 func fun1() -> void:
 	ui.hide_optimal()
 
 
 func fun2() -> void:
 	ui.hide_change()
+
+
+func fun3() -> void:
+	slots.disable_tens()
+	ui.disable_tens()
 
 
 func _on_Slots_slot_changed(slot: Slot) -> void:

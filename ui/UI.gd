@@ -1,9 +1,12 @@
 extends VBoxContainer
 
 var change_visible := true
+var last_price: int
+var last_paid: int
 
 onready var time_label: Label = $Middle/RegisterTop/VBoxContainer/TimeLabel
 onready var _screen = $Middle/RegisterTop/VBoxContainer/HBoxContainer/Screen
+onready var screen_label: Label = _screen.label
 onready var amount_label: Label = _screen.amount_label
 onready var fun_label: Label = _screen.fun_label
 onready var optimal_label: Label = _screen.optimal_label
@@ -16,6 +19,8 @@ func update_screen(price: int, paid: int, change: int, optimal: Array):
 	else:
 		amount_label.text = "$%.2f\n$%.2f" % [price / 100.0, paid / 100.0]
 	optimal_label.text = "Optimal change: %s" % format_optimal(optimal)
+	last_price = price
+	last_paid = paid
 
 
 func format_optimal(optimal: Array) -> String:
@@ -95,11 +100,23 @@ func update_time(time: float) -> void:
 
 
 func hide_optimal(hide := true) -> void:
-	optimal_label.visible = not hide
+	optimal_label.modulate.a = 0 if hide else 255
 
 
 func hide_change(hide := true) -> void:
 	change_visible = not hide
+	screen_label.text = "Amount Paid:\nItem Price:"
+	amount_label.text = "$%.2f\n$%.2f" % [last_price / 100.0, last_paid / 100.0]
+
+
+func disable_tens(disable := true) -> void:
+	var slots = $VBoxContainer/ChangeSlots
+	var slot_numbers = slots.get_node("Labels")
+	slot_numbers.get_node("Label10").modulate.a = 0 if disable else 255
+	slot_numbers.get_node("Label1").modulate.a = 0 if disable else 255
+	slot_numbers.get_node("LabelD").modulate.a = 0 if disable else 255
+	slot_numbers.get_node("LabelP").modulate.a = 0 if disable else 255
+	slots.texture = load("res://ui/textures/ChangeSlotsHalf.png")
 
 
 func _get_slot_label(slot: Slot) -> Label:

@@ -16,19 +16,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Labels" type="HBoxContainer" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Space" type="Control" parent="HBoxContainer"]
+[node name="Space" type="Control" parent="Labels"]
 margin_right = 10.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 10, 0 )
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label20" type="Label" parent="Labels"]
 margin_left = 14.0
 margin_right = 164.0
 margin_bottom = 140.0
@@ -38,7 +38,7 @@ text = "20"
 align = 1
 valign = 1
 
-[node name="Label2" type="Label" parent="HBoxContainer"]
+[node name="Label10" type="Label" parent="Labels"]
 margin_left = 168.0
 margin_right = 328.0
 margin_bottom = 140.0
@@ -48,7 +48,7 @@ text = "10"
 align = 1
 valign = 1
 
-[node name="Label3" type="Label" parent="HBoxContainer"]
+[node name="Label5" type="Label" parent="Labels"]
 margin_left = 332.0
 margin_right = 482.0
 margin_bottom = 140.0
@@ -58,7 +58,7 @@ text = "5"
 align = 1
 valign = 1
 
-[node name="Label4" type="Label" parent="HBoxContainer"]
+[node name="Label1" type="Label" parent="Labels"]
 margin_left = 486.0
 margin_right = 641.0
 margin_bottom = 140.0
@@ -68,7 +68,7 @@ text = "1"
 align = 1
 valign = 1
 
-[node name="Label5" type="Label" parent="HBoxContainer"]
+[node name="LabelQ" type="Label" parent="Labels"]
 margin_left = 645.0
 margin_right = 805.0
 margin_bottom = 140.0
@@ -78,7 +78,7 @@ text = "Q"
 align = 1
 valign = 1
 
-[node name="Label6" type="Label" parent="HBoxContainer"]
+[node name="LabelD" type="Label" parent="Labels"]
 margin_left = 809.0
 margin_right = 959.0
 margin_bottom = 140.0
@@ -88,7 +88,7 @@ text = "D"
 align = 1
 valign = 1
 
-[node name="Label7" type="Label" parent="HBoxContainer"]
+[node name="LabelN" type="Label" parent="Labels"]
 margin_left = 963.0
 margin_right = 1113.0
 margin_bottom = 140.0
@@ -98,7 +98,7 @@ text = "N"
 align = 1
 valign = 1
 
-[node name="Label8" type="Label" parent="HBoxContainer"]
+[node name="LabelP" type="Label" parent="Labels"]
 margin_left = 1117.0
 margin_right = 1277.0
 margin_bottom = 140.0
