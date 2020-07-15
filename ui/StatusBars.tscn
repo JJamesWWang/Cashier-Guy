@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/widgets/StatusBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/textures/StatusBar.png" type="Texture" id=2]
 [ext_resource path="res://ui/widgets/Indicator.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/Theme.tres" type="Theme" id=4]
+[ext_resource path="res://ui/StatusBars.gd" type="Script" id=5]
 
 [node name="StatusBars" type="Control"]
 margin_right = 240.0
 rect_min_size = Vector2( 240, 300 )
 theme = ExtResource( 4 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -96,3 +98,5 @@ margin_left = 100.0
 margin_top = 229.0
 margin_right = 150.0
 margin_bottom = 309.0
+
+[node name="Tween" type="Tween" parent="."]

@@ -34,6 +34,7 @@ config/icon="res://icon.png"
 [autoload]
 
 InputParse="*res://utils/InputParse.gd"
+MoodCalculator="*res://utils/MoodCalculator.gd"
 
 [display]
 

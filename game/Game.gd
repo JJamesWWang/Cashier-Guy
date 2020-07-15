@@ -1,14 +1,15 @@
 extends Node2D
 
+const MAX_PRICE = 10000
+
 var price : int
 var paid : int
 var change : int
-var optimal: String
-
+var optimal: Array
 var slot_passes := 0
-var mood_guy := 100
-var mood_manager := 100
-var mood_customer := 100
+var mood_guy: int = rand_range(100, 200)
+var mood_manager: int = rand_range(100, 200)
+var mood_customer: int = rand_range(100, 200)
 
 onready var ui: Control = $UI
 onready var slots: Node2D = $Slots
@@ -19,6 +20,9 @@ onready var fun_timer: Timer = $FunTimer
 
 func _ready() -> void:
 	randomize()
+	ui.status_bars.change_mood(ui.status_bars.guy_indicator, mood_guy)
+	ui.status_bars.change_mood(ui.status_bars.manager_indicator, mood_manager)
+	ui.status_bars.change_mood(ui.status_bars.customer_indicator, mood_customer)
 	generate_scenario()
 
 
@@ -39,13 +43,13 @@ func _input(event: InputEvent) -> void:
 
 
 func generate_scenario() -> void:
-	price = randi() % 10000
+	price = randi() % MAX_PRICE
 	paid = randi() % (price - 1)
 	change = price - paid
 	calculate_optimal()
 	ui.update_screen(price, paid, change, optimal)
 
-
+# Use greedy algorithm for optimal change and store in var optimal
 func calculate_optimal() -> void:
 	var twenties := 0
 	var tens := 0
@@ -81,44 +85,7 @@ func calculate_optimal() -> void:
 		pennies += 1
 		change_left -= 1
 	
-	optimal = ""
-	if twenties > 0:
-		optimal += "%d $20" % twenties
-	if tens > 0:
-		if optimal != "":
-			optimal += ", %d $10" % tens
-		else:
-			optimal += "%d $10" % tens
-	if fives > 0:
-		if optimal != "":
-			optimal += ", %d $5" % fives
-		else:
-			optimal += "%d $5" % fives
-	if ones > 0:
-		if optimal != "":
-			optimal += ", %d $1" % ones
-		else:
-			optimal += "%d $1" % ones
-	if quarters > 0:
-		if optimal != "":
-			optimal += ", %d Q" % quarters
-		else:
-			optimal += "%d Q" % quarters
-	if dimes > 0:
-		if optimal != "":
-			optimal += ", %d D" % dimes
-		else:
-			optimal += "%d D" % dimes
-	if nickels > 0:
-		if optimal != "":
-			optimal += ", %d N" % nickels
-		else:
-			optimal += "%d N" % nickels
-	if pennies > 0:
-		if optimal != "":
-			optimal += ", %d P" % pennies
-		else:
-			optimal += "%d P" % pennies
+	optimal = [twenties, tens, fives, ones, quarters, dimes, nickels, pennies]
 
 
 func start_timers() -> void:
@@ -129,13 +96,12 @@ func start_timers() -> void:
 func handle_cycle() -> void:
 	var player_change := calculate_change()
 	if player_change != 0:
-		print("Expected change: $%.2f" % (change / 100.0))
-		print("Change: $%.2f" % (player_change / 100.0))
+		update_moods(player_change)
 		reset_slots()
 		generate_scenario()
+		slot_passes = 0
 	else:
-		pass
-
+		slot_passes += 1
 
 func calculate_change() -> int:
 	var player_change := 0
@@ -144,14 +110,50 @@ func calculate_change() -> int:
 	return player_change
 
 
+# Based on efficiency, speed, and accuracy, and current game state.
+func update_moods(player_change: int):
+	var mood_change := (MoodCalculator.check_efficiency(calculate_inefficiency())
+					  + MoodCalculator.check_speed(slot_passes)
+					  + MoodCalculator.check_accuracy(player_change - change))
+	# Potentially make effects less effective at higher/lower moods
+	# warning-ignore-all:narrowing_conversion
+	mood_guy += mood_change.x
+	mood_manager += mood_change.y
+	mood_customer += mood_change.z
+	ui.status_bars.change_mood(ui.status_bars.guy_indicator, mood_guy)
+	ui.status_bars.change_mood(ui.status_bars.manager_indicator, mood_manager)
+	ui.status_bars.change_mood(ui.status_bars.customer_indicator, mood_customer)
+
+
+func calculate_inefficiency() -> int:
+	var inefficiency := 0
+	var i := 0
+	for slot in slots.slots:
+		inefficiency += slot.quantity - optimal[i]
+		i += 1
+	return inefficiency
+
+
+func change_slots(slot: Slot):
+	current_slot = slot
+
+
 func reset_slots() -> void:
 	for slot in slots.slots:
 		slot.reset()
 		ui.reset_slot(slot)
 
 
+func fun1() -> void:
+	ui.hide_optimal()
+
+
+func fun2() -> void:
+	ui.hide_change()
+
+
 func _on_Slots_slot_changed(slot: Slot) -> void:
-	current_slot = slot
+	change_slots(slot)
 
 
 func _on_SlotSelector_reset() -> void:
