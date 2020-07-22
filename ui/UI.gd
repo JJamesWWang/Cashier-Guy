@@ -5,6 +5,7 @@ var value_reverse := false
 var last_paid: int
 var last_price: int
 var last_change: int
+var animating_labels := {}
 
 onready var time_label: Label = $Middle/RegisterTop/VBoxContainer/TimeLabel
 onready var _screen = $Middle/RegisterTop/VBoxContainer/HBoxContainer/Screen
@@ -14,6 +15,7 @@ onready var fun_label: Label = _screen.fun_label
 onready var optimal_label: Label = _screen.optimal_label
 onready var status_bars: Control = $Middle/StatusBars
 onready var slots: TextureRect = $VBoxContainer/ChangeSlots
+onready var dialogue_box: Panel = $DialogueBox
 
 
 func update_screen(paid: int, price: int, change: int, optimal: Array):
@@ -82,15 +84,13 @@ func format_optimal(optimal: Array) -> String:
 
 func set_fun_text(text: String):
 	fun_label.text = text
+	Animations.animate_text(fun_label)
 
 
 # Add (concatenate) a number to the slot quantity.
-func add_to_slot(slot: Slot, number: String) -> void:
+func set_slot(slot: Slot, number: String) -> void:
 	var label: Label = _get_slot_label(slot)
-	if label.text != "0":
-		label.text = label.text + number
-	else:
-		label.text = number
+	label.text = number
 
 
 # Change number of label back to 0
@@ -104,6 +104,12 @@ func update_time(time: float) -> void:
 	var minutes: int = time / 60
 	var seconds: int = time - (60 * minutes)
 	time_label.text = "%d:%02d" % [minutes, seconds]
+
+
+func update_moods(mood_guy: int, mood_manager: int, mood_customer: int):
+	status_bars.change_mood(status_bars.guy_indicator, mood_guy)
+	status_bars.change_mood(status_bars.manager_indicator, mood_manager)
+	status_bars.change_mood(status_bars.customer_indicator, mood_customer)
 
 
 func hide_optimal(hide := true) -> void:

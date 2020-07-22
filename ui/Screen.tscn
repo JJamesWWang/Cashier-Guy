@@ -59,7 +59,7 @@ margin_left = 383.0
 margin_right = 908.0
 margin_bottom = 165.0
 rect_min_size = Vector2( 525, 165 )
-text = "Hi, I am here to help you."
+align = 1
 autowrap = true
 clip_text = true
 
@@ -67,4 +67,4 @@ clip_text = true
 margin_top = 169.0
 margin_right = 908.0
 margin_bottom = 202.0
-text = "Optimal Change: 1 $20, 1 $10, 1 $5, 1 $1, 2 Q, 2 D, 1 N, 1 P"
+text = "Optimal Change: 1 $10, 1 $5, 1 P"

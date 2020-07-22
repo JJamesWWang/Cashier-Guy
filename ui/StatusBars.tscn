@@ -82,9 +82,9 @@ margin_bottom = 299.0
 texture = ExtResource( 2 )
 
 [node name="GuyIndicator" parent="." instance=ExtResource( 3 )]
-margin_left = 100.0
+margin_left = 137.0
 margin_top = 22.5
-margin_right = 150.0
+margin_right = 187.0
 margin_bottom = 102.5
 
 [node name="ManagerIndicator" parent="." instance=ExtResource( 3 )]

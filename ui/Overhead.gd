@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var speed := 1
+
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var accuracy_label: Label = $ColorRect1/AccuracyLabel
 onready var efficiency_label: Label = $ColorRect2/EfficiencyLabel
@@ -19,5 +21,6 @@ func update_labels(accuracy: int, efficiency: int):
 	else:
 		efficiency_label.text = "Efficient!"
 
+
 func flash_and_fade() -> void:
-	animation_player.play("Fade")
+	animation_player.play("Fade %d" % speed)

@@ -54,6 +54,7 @@ __meta__ = {
 }
 
 [node name="TimeLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 1000.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 0, 32 )

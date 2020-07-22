@@ -1,7 +1,5 @@
 extends Area2D
 
-signal reset
-
 var reverse: bool
 
 export (int) var SPEED = 512
@@ -18,11 +16,10 @@ func _process(delta: float) -> void:
 			position = START
 		else:
 			position = ALT_START
-		emit_signal("reset")
 
 
 func speed_up() -> void:
-	SPEED *= 2
+	SPEED *= 1.33
 
 
 func reverse_direction() -> void:
