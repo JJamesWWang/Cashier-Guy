@@ -100,11 +100,11 @@ script = ExtResource( 2 )
 
 [node name="ColorRect1" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 327.0
+margin_left = 307.0
 margin_top = 266.0
 margin_right = 1317.0
 margin_bottom = 516.0
-rect_min_size = Vector2( 900, 250 )
+rect_min_size = Vector2( 1010, 250 )
 color = Color( 0.16, 0.16, 0.16, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,7 +129,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 52.0
 margin_top = 571.0
-margin_right = 1312.0
+margin_right = 1313.0
 margin_bottom = 691.0
 color = Color( 0.16, 0.16, 0.16, 1 )
 __meta__ = {

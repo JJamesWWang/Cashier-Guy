@@ -130,7 +130,29 @@ func disable_tens(disable := true) -> void:
 	slot_numbers.get_node("Label1").modulate.a = 0 if disable else 255
 	slot_numbers.get_node("LabelD").modulate.a = 0 if disable else 255
 	slot_numbers.get_node("LabelP").modulate.a = 0 if disable else 255
-	slots.texture = load("res://ui/textures/ChangeSlotsHalf.png")
+	slots.texture.atlas = load("res://ui/textures/ChangeSlotsHalf.png")
+
+
+func change_slots(slot: Slot, tens_disabled: bool):
+	var y_pos := 0
+	match slot.symbol:
+		"20":
+			y_pos = 0 if not tens_disabled else 140
+		"10":
+			y_pos = 140 if not tens_disabled else 0
+		"5":
+			y_pos = 280 if not tens_disabled else 280
+		"1":
+			y_pos = 420 if not tens_disabled else 0
+		"Q":
+			y_pos = 560 if not tens_disabled else 420
+		"D":
+			y_pos = 700 if not tens_disabled else 0
+		"N":
+			y_pos = 840 if not tens_disabled else 560
+		"P":
+			y_pos = 980 if not tens_disabled else 0
+	slots.texture.region = Rect2(0, y_pos, 1280, 140)
 
 
 # It doesn't make sense to reverse when change is visible.

@@ -32,33 +32,54 @@ rect_min_size = Vector2( 1280, 300 )
 custom_constants/separation = 20
 
 [node name="Space" type="Control" parent="Middle"]
+visible = false
 margin_bottom = 300.0
 
 [node name="StatusBars" parent="Middle" instance=ExtResource( 2 )]
-margin_left = 20.0
-margin_right = 260.0
 margin_bottom = 300.0
 
 [node name="RegisterTop" type="TextureRect" parent="Middle"]
-margin_left = 280.0
-margin_right = 1000.0
+margin_left = 260.0
+margin_right = 980.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 720, 220 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Middle/RegisterTop"]
-margin_right = 980.0
+margin_right = 1000.0
 margin_bottom = 337.0
 rect_min_size = Vector2( 0, 300 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TimeLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer"]
-modulate = Color( 1, 1, 1, 0 )
-margin_right = 1000.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="Middle/RegisterTop/VBoxContainer"]
+margin_right = 1020.0
+margin_bottom = 33.0
+custom_constants/separation = 0
+
+[node name="Space" type="Control" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+margin_right = 50.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="ScoreLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+margin_left = 50.0
+margin_right = 232.0
+margin_bottom = 33.0
+text = "Score: 2000"
+
+[node name="Space2" type="Control" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+margin_left = 232.0
+margin_right = 797.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+
+[node name="TimeLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+margin_left = 797.0
+margin_right = 1020.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 0, 32 )
-text = "5:00"
+text = "Time Left: 5:00"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,7 +87,7 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Middle/RegisterTop/VBoxContainer"]
 margin_top = 37.0
-margin_right = 1000.0
+margin_right = 1020.0
 margin_bottom = 297.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -74,8 +95,9 @@ __meta__ = {
 
 [node name="Screen" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
 margin_left = 0.0
-margin_right = 1000.0
+margin_right = 1020.0
 margin_bottom = 260.0
+rect_min_size = Vector2( 1020, 260 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_top = 500.0

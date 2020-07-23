@@ -16,7 +16,6 @@ var fun_count := 1
 var complex_change := false
 var tens_disabled := false
 var selector_reversed := false
-var manager_present := false
 var rush_hour := false
 var guy_warning1 := false
 var guy_warning2 := false
@@ -56,7 +55,7 @@ func _process(_delta: float) -> void:
 		reset_slots()
 	if Input.is_action_just_pressed("start_game"):
 		Tutorial.stop_tutorial()
-		start_timers()
+		start_game()
 	if Input.is_action_just_pressed("fun"):
 		fun_effect(fun_count)
 		fun_count += 1
@@ -69,10 +68,12 @@ func _input(event: InputEvent) -> void:
 			if not tens_disabled:
 				ui.set_slot(current_slot, number)
 				current_slot.quantity = int(number)
+				SoundFX.play("Key.wav", 1, -15)
 			else:
 				if not current_slot.symbol in ["10", "1", "D", "P"]:
 					ui.set_slot(current_slot, number)
 					current_slot.quantity = int(number)
+					SoundFX.play("Key.wav", 1, -15)
 
 
 func generate_scenario() -> void:
@@ -144,7 +145,7 @@ func optimal_possible() -> bool:
 	return true
 
 
-func start_timers() -> void:
+func start_game() -> void:
 	if game_timer.time_left == 0:
 		game_timer.start()
 		fun_timer.start()
@@ -161,6 +162,7 @@ func handle_cycle() -> void:
 		var efficiency = calculate_inefficiency()
 		if not Tutorial.active:
 			update_moods(accuracy, efficiency)
+			MoodCalculator.play_accuracy(accuracy)
 		flash_results(accuracy, efficiency)
 		commentary()
 		reset_slots()
@@ -193,7 +195,7 @@ func calculate_inefficiency() -> int:
 
 # Based on efficiency, speed, and accuracy, and current game state.
 func update_moods(accuracy: int, efficiency: int):
-	var mood_change = MoodCalculator.calculate_mood(accuracy, efficiency, manager_present)
+	var mood_change = MoodCalculator.calculate_mood(accuracy, efficiency)
 	# warning-ignore-all:narrowing_conversion
 	mood_guy = clamp(mood_guy + mood_change.x, 0, 200)
 	if mood_customer + mood_change.z < 0:
@@ -247,7 +249,7 @@ func commentary():
 		guy_warning2 = true
 		guy_warning1 = true
 	elif not manager_warning2 and mood_manager < WARNING2_THRESHOLD:
-		dialogue_box.dialogue_manager("If you keep tihs up, Guy, I'll have you fired!")
+		dialogue_box.dialogue_manager("If you keep this up, Guy, I'll have you fired!")
 		manager_warning2 = true
 		manager_warning1 = true
 	elif not customer_warning2 and mood_customer < WARNING2_THRESHOLD:
@@ -289,6 +291,16 @@ func slow_commentary() -> void:
 
 func change_slots(slot: Slot):
 	current_slot = slot
+	ui.change_slots(slot, tens_disabled)
+	if slot == slots.get_slot("20") and not selector_reversed:
+		handle_cycle()
+	elif slot == slots.get_slot("P") and selector_reversed:
+		handle_cycle()
+	if not tens_disabled:
+		SoundFX.play("SlotChange.wav", 0.7, -20)
+	else:
+		if slot.symbol in ["20", "5", "Q", "N"]:
+			SoundFX.play("SlotChange.wav", 0.7, -20)
 
 
 func reset_slots() -> void:
@@ -305,9 +317,24 @@ func game_won() -> void:
 
 
 func game_over() -> void:
+	game_timer.paused = true
+	fun_timer.paused = true
+	selector.stop()
+	if mood_guy == 0 and mood_manager == 0:
+		ui.dialogue_box.dialogue_guy("I've had enough of this nonsense. I quit.")
+		Animations.animate_text(ui.dialogue_box.text)
+		yield(get_tree().create_timer(7), "timeout")
+		ui.dialogue_box.dialogue_manager("Good, your time here wasn't going to last much longer anyway.")
+	elif mood_guy == 0:
+		ui.dialogue_box.dialogue_guy("I've had enough of this nonsense. I quit.")
+	elif mood_manager == 0:
+		ui.dialogue_box.dialogue_manager("You've made too many mistakes, Guy. You're fired.")
+	Animations.animate_text(ui.dialogue_box.text)
+	yield(get_tree().create_timer(7), "timeout")
 	var error = get_tree().change_scene("res://ui/GameOver.tscn")
 	if error != OK:
 		ui.set_fun_text("I can't show you the game over screen, but you lost.")
+	
 
 
 func fun_effect(number: int) -> void:
@@ -350,10 +377,8 @@ func fun2() -> void:
 
 
 func fun3() -> void:
-	manager_present = true
 	rush_hour = true
-	ui.set_fun_text("Your manager is watching you and the customers are rushing in. "
-				  + "Try not to over/under pay or take too long.")
+	ui.set_fun_text("The customers are rushing in. Try not to take too long.")
 	ui.dialogue_box.dialogue_manager("How's it going, Guy? Looks like a lot of customers are coming in so you gotta speed things up.")
 	Animations.animate_text(ui.dialogue_box.text)
 
@@ -373,27 +398,27 @@ func fun5() -> void:
 	Animations.animate_text(ui.dialogue_box.text)
 
 
-func fun6() -> void:
-	tens_disabled = true
-	ui.disable_tens()
-	ui.set_fun_text("The $10 bill, $1 bill, dime, and penny make it too easy to make inefficient change, don't you think?")
-	ui.dialogue_box.dialogue_guy("(Okay, what the actual heck.)")
-	Animations.animate_text(ui.dialogue_box.text)
-
-
 # Must come after fun4
-func fun7() -> void:
+func fun6() -> void:
 	ui.reverse_values()
 	ui.set_fun_text("Always be prepared for malfunctions in technology.")
 	ui.dialogue_box.dialogue_guy("(I don't like this.)")
 	Animations.animate_text(ui.dialogue_box.text)
 
 
-func fun8() -> void:
+func fun7() -> void:
 	selector.reverse_direction()
 	selector_reversed = not selector_reversed
 	ui.set_fun_text("There is always a trade off between thinking things through and doing things quickly.")
 	ui.dialogue_box.dialogue_guy("(This is bad.)")
+	Animations.animate_text(ui.dialogue_box.text)
+
+
+func fun8() -> void:
+	tens_disabled = true
+	ui.disable_tens()
+	ui.set_fun_text("The $10 bill, $1 bill, dime, and penny make it too easy to make inefficient change, don't you think?")
+	ui.dialogue_box.dialogue_guy("(Okay, what the actual heck.)")
 	Animations.animate_text(ui.dialogue_box.text)
 
 
@@ -408,10 +433,6 @@ func fun9() -> void:
 
 func _on_Slots_slot_changed(slot: Slot) -> void:
 	change_slots(slot)
-	if slot == slots.get_slot("20") and not selector_reversed:
-		handle_cycle()
-	elif slot == slots.get_slot("P") and selector_reversed:
-		handle_cycle()
 
 
 func _on_FunTimer_timeout() -> void:

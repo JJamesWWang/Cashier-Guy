@@ -26,4 +26,7 @@ func reverse_direction() -> void:
 	scale.x *= -1
 	SPEED *= -1
 	reverse = true
-	
+
+
+func stop() -> void:
+	SPEED = 0

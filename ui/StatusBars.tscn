@@ -16,9 +16,8 @@ __meta__ = {
 }
 
 [node name="Bars" type="VBoxContainer" parent="."]
-margin_left = 6.0
-margin_right = 246.0
-margin_bottom = 299.0
+margin_right = 240.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 240, 300 )
 custom_constants/separation = 0
 __meta__ = {

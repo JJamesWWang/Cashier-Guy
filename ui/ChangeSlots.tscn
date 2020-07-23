@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/ThaleahFat_TTF.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/textures/ChangeSlots.png" type="Texture" id=2]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 1280, 140 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 128
 font_data = ExtResource( 1 )
 
@@ -11,7 +16,7 @@ font_data = ExtResource( 1 )
 margin_right = 1280.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 1280, 140 )
-texture = ExtResource( 2 )
+texture = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -33,7 +38,7 @@ margin_left = 14.0
 margin_right = 164.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 150, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "20"
 align = 1
 valign = 1
@@ -43,7 +48,7 @@ margin_left = 168.0
 margin_right = 328.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 160, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "10"
 align = 1
 valign = 1
@@ -53,7 +58,7 @@ margin_left = 332.0
 margin_right = 482.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 150, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "5"
 align = 1
 valign = 1
@@ -63,7 +68,7 @@ margin_left = 486.0
 margin_right = 641.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 155, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "1"
 align = 1
 valign = 1
@@ -73,7 +78,7 @@ margin_left = 645.0
 margin_right = 805.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 160, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Q"
 align = 1
 valign = 1
@@ -83,7 +88,7 @@ margin_left = 809.0
 margin_right = 959.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 150, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "D"
 align = 1
 valign = 1
@@ -93,7 +98,7 @@ margin_left = 963.0
 margin_right = 1113.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 150, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "N"
 align = 1
 valign = 1
@@ -103,7 +108,7 @@ margin_left = 1117.0
 margin_right = 1277.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 160, 140 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "P"
 align = 1
 valign = 1

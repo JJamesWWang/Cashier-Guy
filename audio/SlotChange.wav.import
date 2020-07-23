@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SlotChange.wav-900c1fce6f505248173a938131c18511.sample"
+
+[deps]
+
+source_file="res://audio/SlotChange.wav"
+dest_files=[ "res://.import/SlotChange.wav-900c1fce6f505248173a938131c18511.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

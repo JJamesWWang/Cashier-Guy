@@ -9,19 +9,18 @@ guy (Why is this even a thing?)
 manager I'll leave the rest for you to figure out!
 guy (This register gives out change immediately after the indicator reaches the end. How unforgiving for mistakes...)
 guy (Well, no one actually looks at how much change they get right? Still, I should probably try to be as accurate as possible.)
-guy (It's funny because I can give someone 1000 pennies and it'd technically be accurate. Too bad they'll probably get pissed.)
+guy (I should also try to keep the bill and coin count low to be as efficient as possible.)
 customer Hello? You're kind of spacing out. Can you scan my item?
-guy (Bruh)
 guy (It's also probably bad to keep customers waiting...)
 customer You're absolutely correct in your thoughts, Guy.
 guy What.
-customer What you were just thinking about is related to the status bars to the left of the screen, was it not? Those indicate moods.
+customer What you were just thinking about is related to the status bars to the left of the screen, was it not? Those indicate how satisfied people are.
 guy What are you talking about.
-customer There's more for you to know. Once your shift starts, a 5-minute timer will start ticking down and every 30 seconds something interesting will happen.
-customer Your goal is to last the entire time without letting the "Guy" or "Manager" status bars reach the left-most side, or the worst mood.
+customer Once your shift starts, a 5-minute timer will start ticking down and every 30 seconds something interesting will happen.
+customer Your goal is to last the entire time without letting the "Guy" or "Manager" status bars reach the left-most side.
 guy Yeah. Okay. Whatever you say.
 customer Watch out for the "Customer" bar as well, because if it reaches the left-most side, negative effects will carry over to the manager.
 customer So try to keep an eye on those statuses while you're trying to make change as quickly, accurately, and efficiently as possible!
 guy Yep. Mm-hmm. Thanks.
 guy ...
-guy Finally, those guys are gone. Why are random people to telling me how to do my job now?
+guy (Finally, those guys are gone. Why are random people to telling me how to do my job?)

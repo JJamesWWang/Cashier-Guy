@@ -15,6 +15,7 @@ func _process(_delta: float) -> void:
 			Animations.skip_animate_text(dialogue_box.text)
 		else:
 			next_dialogue()
+			SoundFX.play("SlotChange.wav", 1.5, -10)
 
 
 func init(ui_: Control) -> void:
