@@ -385,8 +385,10 @@ func store_scores(game_won: bool) -> void:
 		HighScores.grade = "B"
 	elif HighScores.final_score > 10000:
 		HighScores.grade = "C"
-	else:
+	elif HighScores.final_score >= 0:
 		HighScores.grade = "D"
+	else:
+		HighScores.grade = "F"
 
 
 func fun_effect(number: int) -> void:
