@@ -31,7 +31,7 @@ config/description="Guy's worst day on the job as a cashier. Can you survive for
 run/main_scene="res://ui/MainMenu.tscn"
 boot_splash/image="res://SplashScreen.png"
 boot_splash/use_filter=false
-config/icon="res://Icon.png"
+config/icon="res://icon.png"
 
 [autoload]
 
