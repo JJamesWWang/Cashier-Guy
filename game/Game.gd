@@ -55,14 +55,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	ui.update_time(game_timer.time_left)
-	if Input.is_action_just_pressed("reset_slots"):
-		reset_slots()
 	if Input.is_action_just_pressed("start_game"):
 		Tutorial.stop_tutorial()
 		start_game()
-	if Input.is_action_just_pressed("fun"):
-		fun_effect(fun_count)
-		fun_count += 1
 
 
 func _input(event: InputEvent) -> void:
