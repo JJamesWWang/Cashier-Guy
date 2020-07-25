@@ -52,29 +52,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Middle/RegisterTop/VBoxContainer"]
+[node name="TopHBoxContainer" type="HBoxContainer" parent="Middle/RegisterTop/VBoxContainer"]
 margin_right = 1020.0
 margin_bottom = 33.0
 custom_constants/separation = 0
 
-[node name="Space" type="Control" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+[node name="Space" type="Control" parent="Middle/RegisterTop/VBoxContainer/TopHBoxContainer"]
 margin_right = 50.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="ScoreLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+[node name="ScoreLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer/TopHBoxContainer"]
 margin_left = 50.0
-margin_right = 232.0
+margin_right = 178.0
 margin_bottom = 33.0
-text = "Score: 2000"
+text = "Score: 0"
 
-[node name="Space2" type="Control" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
-margin_left = 232.0
+[node name="Space2" type="Control" parent="Middle/RegisterTop/VBoxContainer/TopHBoxContainer"]
+margin_left = 178.0
 margin_right = 797.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 
-[node name="TimeLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer/HBoxContainer2"]
+[node name="TimeLabel" type="Label" parent="Middle/RegisterTop/VBoxContainer/TopHBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 797.0
 margin_right = 1020.0
 margin_bottom = 33.0

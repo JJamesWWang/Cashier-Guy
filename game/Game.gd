@@ -24,6 +24,10 @@ var manager_warning2 := false
 var customer_warning1 := false
 var customer_warning2 := false
 var customer_warning3 := false
+var score := 0 setget _set_score
+var total_underpay := 0.0
+var total_overpay := 0.0
+var GameOver := preload("res://ui/GameOver.tscn")
 
 onready var MoodCalculator := $MoodCalculator
 onready var InputParse := $InputParse
@@ -44,7 +48,7 @@ func _ready() -> void:
 	mood_customer = rand_range(150, 200)
 	ui.update_moods(mood_guy, mood_manager, mood_customer)
 	generate_scenario()
-	ui.set_fun_text("To advance the text, press \"E\"\nTo skip the tutorial, press \"S\"")
+	ui.set_fun_text("To continue tutorial, press \"E\"\nTo start game, press \"S\"\n")
 	Tutorial.init(ui)
 	Tutorial.start_tutorial()
 
@@ -163,6 +167,7 @@ func handle_cycle() -> void:
 		if not Tutorial.active:
 			update_moods(accuracy, efficiency)
 			MoodCalculator.play_accuracy(accuracy)
+			add_score(accuracy, efficiency)
 		flash_results(accuracy, efficiency)
 		commentary()
 		reset_slots()
@@ -236,6 +241,30 @@ func slow_penalty() -> void:
 	ui.update_moods(mood_guy, mood_manager, mood_customer)
 
 
+func add_score(accuracy: int, efficiency: int) -> void:
+	match slot_passes:
+		0: self.score += 200
+		1: self.score += 100
+		2: self.score += 75
+		3: self.score += 50
+	if accuracy > 0:
+		self.score += 100
+		total_overpay += accuracy
+	elif accuracy < 0:
+		self.score += 100
+		total_underpay += -1 * accuracy
+	else:
+		self.score += 300
+		if efficiency < 0:
+			self.score += 50
+		if efficiency == 0:
+			self.score += 200
+		elif efficiency < MoodCalculator.EFFICIENCY_OKAY:
+			self.score += 100
+		elif efficiency < MoodCalculator.EFFICIENCY_BAD:
+			self.score += 50
+
+
 func flash_results(accuracy: int, efficiency: int) -> void:
 	overhead.update_labels(accuracy, efficiency)
 	overhead.flash_and_fade()
@@ -297,10 +326,10 @@ func change_slots(slot: Slot):
 	elif slot == slots.get_slot("P") and selector_reversed:
 		handle_cycle()
 	if not tens_disabled:
-		SoundFX.play("SlotChange.wav", 0.7, -20)
+		SoundFX.play("SlotChange.wav", 0.7, -15)
 	else:
 		if slot.symbol in ["20", "5", "Q", "N"]:
-			SoundFX.play("SlotChange.wav", 0.7, -20)
+			SoundFX.play("SlotChange.wav", 0.7, -15)
 
 
 func reset_slots() -> void:
@@ -310,7 +339,7 @@ func reset_slots() -> void:
 
 
 func game_won() -> void:
-	print("Game won!")
+	store_scores(true)
 	var err = get_tree().change_scene("res://ui/GameOver.tscn")
 	if err != OK:
 		ui.set_fun_text("I can't show you the game over screen, but you won.")
@@ -330,11 +359,34 @@ func game_over() -> void:
 	elif mood_manager == 0:
 		ui.dialogue_box.dialogue_manager("You've made too many mistakes, Guy. You're fired.")
 	Animations.animate_text(ui.dialogue_box.text)
+	store_scores(false)
 	yield(get_tree().create_timer(7), "timeout")
 	var error = get_tree().change_scene("res://ui/GameOver.tscn")
 	if error != OK:
 		ui.set_fun_text("I can't show you the game over screen, but you lost.")
-	
+
+
+func store_scores(game_won: bool) -> void:
+	HighScores.score = score
+	HighScores.mood_guy = mood_guy
+	HighScores.mood_manager = mood_manager
+	HighScores.mood_customer = mood_customer
+	HighScores.total_overpay = total_overpay
+	HighScores.total_underpay = total_underpay
+	HighScores.survival_bonus = 10000 if game_won else 0
+	HighScores.final_score = score + (mood_guy / 2.0 * 100) + \
+	(mood_manager / 2.0 * 100) + (mood_customer / 2.0 * 100) - \
+	total_overpay - total_underpay + HighScores.survival_bonus
+	if HighScores.final_score > 40000:
+		HighScores.grade = "S"
+	elif HighScores.final_score > 30000:
+		HighScores.grade = "A"
+	elif HighScores.final_score > 20000:
+		HighScores.grade = "B"
+	elif HighScores.final_score > 10000:
+		HighScores.grade = "C"
+	else:
+		HighScores.grade = "D"
 
 
 func fun_effect(number: int) -> void:
@@ -429,6 +481,11 @@ func fun9() -> void:
 	ui.set_fun_text("In the heat of the moment, you must remember to keep calm and focus on your task.")
 	ui.dialogue_box.dialogue_guy("(I hate this job.)")
 	Animations.animate_text(ui.dialogue_box.text)
+
+
+func _set_score(value: int):
+	score = value
+	ui.update_score(value)
 
 
 func _on_Slots_slot_changed(slot: Slot) -> void:

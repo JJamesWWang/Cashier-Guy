@@ -27,16 +27,17 @@ _global_script_class_icons={
 [application]
 
 config/name="Cashier Guy"
-config/description="Guy's about to experience his worst day on the job."
-run/main_scene="res://game/Game.tscn"
+config/description="Guy's worst day on the job as a cashier. Can you survive for 5 minutes?"
+run/main_scene="res://ui/MainMenu.tscn"
 boot_splash/image="res://SplashScreen.png"
 boot_splash/use_filter=false
-config/icon="res://icon.png"
+config/icon="res://Icon.png"
 
 [autoload]
 
 Animations="*res://utils/Animations.tscn"
 SoundFX="*res://audio/SoundFX.tscn"
+HighScores="*res://utils/HighScores.gd"
 
 [display]
 

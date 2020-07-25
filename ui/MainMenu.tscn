@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://ui/ThaleahFat_TTF.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://ui/textures/ManagerIcon.png" type="Texture" id=4]
+[ext_resource path="res://ui/textures/CustomerIcon.png" type="Texture" id=5]
+[ext_resource path="res://ui/textures/GuyIcon.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 144
@@ -13,6 +16,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,39 +42,91 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -70.5
-margin_right = 70.5
-custom_constants/separation = 20
+margin_left = -228.0
+margin_right = 230.0
+custom_constants/separation = 100
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Control" type="Control" parent="VBoxContainer"]
-margin_right = 180.0
-margin_bottom = 301.0
+margin_right = 458.0
+margin_bottom = 32.0
 size_flags_vertical = 3
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
-margin_top = 321.0
-margin_right = 180.0
-margin_bottom = 374.0
-rect_min_size = Vector2( 180, 50 )
-text = "Start"
+[node name="Control2" type="Control" parent="VBoxContainer"]
+margin_top = 132.0
+margin_right = 458.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 0, 100 )
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
-margin_top = 394.0
-margin_right = 180.0
-margin_bottom = 447.0
-rect_min_size = Vector2( 180, 50 )
-text = "Settings"
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 332.0
+margin_right = 458.0
+margin_bottom = 482.0
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+margin_right = 150.0
+margin_bottom = 150.0
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+margin_left = 154.0
+margin_right = 304.0
+margin_bottom = 150.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+margin_left = 308.0
+margin_right = 458.0
+margin_bottom = 150.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+margin_top = 582.0
+margin_right = 458.0
+margin_bottom = 635.0
+rect_min_size = Vector2( 180, 50 )
+text = "Start"
+
 [node name="Control3" type="Control" parent="VBoxContainer"]
-margin_top = 467.0
-margin_right = 180.0
+margin_top = 735.0
+margin_right = 458.0
 margin_bottom = 768.0
 size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -385.0
+margin_top = -52.9999
+margin_right = -30.0
+margin_bottom = -19.9999
+text = "A game by JJamesWWang"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -52.9999
+margin_right = 304.0
+margin_bottom = -19.9999
+text = "MFGJ Summer 2020"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]

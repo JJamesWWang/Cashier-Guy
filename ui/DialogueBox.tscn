@@ -95,7 +95,7 @@ margin_top = 45.0
 margin_right = 1040.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 1040, 105 )
-text = "I really don't like this job..."
+text = "Text"
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false

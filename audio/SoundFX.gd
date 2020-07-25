@@ -2,6 +2,8 @@ extends Node
 
 const AUDIO_PATH = "res://audio/"
 
+var volume_multiplier := 1.0
+
 var sounds := {
 	"SlotChange.wav": load(AUDIO_PATH + "SlotChange.wav"),
 	"Accurate.wav": load(AUDIO_PATH + "Accurate.wav"),
@@ -19,7 +21,7 @@ func play(file_name: String, pitch: float = 1, volume: float = -10) -> void:
 		for player in players:
 			if not player.playing:
 				player.stream = sounds[file_name]
-				player.volume_db = volume
+				player.volume_db = volume * volume_multiplier
 				player.pitch_scale = pitch
 				player.playing = true
 				return

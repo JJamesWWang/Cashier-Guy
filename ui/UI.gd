@@ -7,7 +7,8 @@ var last_price: int
 var last_change: int
 var animating_labels := {}
 
-onready var time_label: Label = $Middle/RegisterTop/VBoxContainer/TimeLabel
+onready var score_label: Label = $Middle/RegisterTop/VBoxContainer/TopHBoxContainer/ScoreLabel
+onready var time_label: Label = $Middle/RegisterTop/VBoxContainer/TopHBoxContainer/TimeLabel
 onready var _screen = $Middle/RegisterTop/VBoxContainer/HBoxContainer/Screen
 onready var screen_label: Label = _screen.label
 onready var amount_label: Label = _screen.amount_label
@@ -104,6 +105,10 @@ func update_time(time: float) -> void:
 	var minutes: int = time / 60
 	var seconds: int = time - (60 * minutes)
 	time_label.text = "%d:%02d" % [minutes, seconds]
+
+
+func update_score(score: int) -> void:
+	score_label.text = "Score: " + str(score)
 
 
 func update_moods(mood_guy: int, mood_manager: int, mood_customer: int):

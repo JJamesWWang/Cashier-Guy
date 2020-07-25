@@ -7,7 +7,7 @@ var customer_names = ["Average Andy", "Boring Bobby", "Cumbersome Caleb",
 "Dummy Dylan", "Egoistic Ethan", "Flaky Franklin", "Greedy Gilbert", 
 "Hairy Harvey", "Icy Isaac", "Jobless Jacob", "Kooky Kenny", "Loser Larry", 
 "Moody Melvin", "Needy Nathan", "Obnoxious Olaf", "Petty Parker", 
-"Quirky Quinton", "Raging Randy", "Smelly Simon", "Thirsty Tyler", "Ugly Ulric",
+"Quirky Quinton", "Raging Randy", "Smelly Simon", "Tasteless Tanner", "Ugly Ulric",
 "Vulture Vernon", "Wrinkly Wallace", "\"X\"-tra Xavier", "Yawner Yuki", 
 "Zoomer Zachary"
 ]
@@ -15,6 +15,10 @@ var customer_names = ["Average Andy", "Boring Bobby", "Cumbersome Caleb",
 onready var icon: TextureRect = $HBoxContainer/ProfileBorder/Profile
 onready var npc_name: Label = $HBoxContainer/VBoxContainer/Name
 onready var text: Label = $HBoxContainer/VBoxContainer/Text
+
+
+func _ready() -> void:
+	randomize()
 
 
 func dialogue_guy(text_: String):
